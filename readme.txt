@@ -11,7 +11,7 @@ Recast allows you to create your own podcast network and directory.
 
 == Description ==
 
-Podcast networks are an emerging trend in podcasting. Independent podcast publishers form an alliance under one network name and agree to cross-promote each other.
+Podcast networks are an emerging trend in podcasting. Independent podcast podcasters form an alliance under one network name and agree to cross-promote each other.
 
 Recast helps you build your podcast network empire by aggregating the feed information from the podcasts you define.
 
@@ -50,9 +50,9 @@ To install Recast:
 
 A podcast is the modern equivalent of a radio program. You create audio recordings (episodes) of your show and publish them in various podcasting directories such as iTunes.
 
-= What are publishers and episodes? =
+= What are podcasters and episodes? =
 
-A publisher is someone who produces a podcast. An episode is a single production or recording.
+A podcaster is someone who produces a podcast. An episode is a single production or recording.
 
 = What is a podcast directory? =
 
@@ -78,9 +78,9 @@ Recast is a plugin for WordPress to create your own podcast directory and networ
 
 = What is a Mega-feed? =
 
-Recast PRO has a killer feature called the Mega-feed. Instead of requiring listeners to subscribe individually to each podcast in your network, your network itself is a feed. Listeners simply subscribe to the mega-feed and then will begin receiving all epsiode content from all publishers in your network.
+Recast PRO has a killer feature called the Mega-feed. Instead of requiring listeners to subscribe individually to each podcast in your network, your network itself is a feed. Listeners simply subscribe to the mega-feed and then will begin receiving all epsiode content from all podcasters in your network.
 
-The mega-feed is a fantastic way to encourage listener and publisher loyalty as well as promoting new podcasts without a large listener audience.
+The mega-feed is a fantastic way to encourage listener and podcaster loyalty as well as promoting new podcasts without a large listener audience.
 
 = Are you available for customizations or custom WordPress programming? =
 

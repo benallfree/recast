@@ -1,0 +1,19 @@
+{
+    "name": "benallfree.com/recast",
+    "require": {
+        "nesbot/carbon": "^1.19",
+        "nickcernis/html-to-markdown": "^2.2",
+        "michelf/php-markdown": "^1.5"
+    },
+    "authors": [
+        {
+            "name": "Ben Allfree",
+            "email": "ben@benallfree.com"
+        }
+    ],
+  	"autoload": {
+  		"classmap": [
+  			"app/classes"
+  		]
+  	}
+}
