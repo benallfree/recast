@@ -55,15 +55,14 @@ class PublisherUpdater
           'explicit'=>$item->children('itunes', true)->explicit->__toString(),
           'keywords'=>$this->sanitize($item->children('itunes', true)->keywords->__toString()),
           'subtitle'=>$this->sanitize($item->children('itunes', true)->subtitle->__toString()),
-        )
+        ),
+        'raw'=>$item->asXml(),
       );
-      if($item->children('itunes', true)->image==true)
+      $node = $item->children('itunes', true)->image; // Needed to force evaluation
+      if($node)
       {
-        $itunes_image = $item->children('itunes', true)->image->attribtues(); 
+        $itunes_image = $node->attributes(); 
         $arr['itunes']['image'] = $itunes_image['href']->__toString();
-        
-        if($arr['itunes']['image']) dd($arr);
-        
       }
       $items[] = $arr;
     }
@@ -74,14 +73,14 @@ class PublisherUpdater
       return -1;
     });
     
-    $items = array_slice($items, 0, 25);
+    $items = array_slice($items, 0, RECAST_EPISODE_LIMIT);
     
     for($i=0;$i<count($items);$i++)
     {
       self::process_episode($items[$i]);
     }
     $args = array(
-    	'posts_per_page'   => 0,
+    	'posts_per_page'   => -1,
     	'offset'           => 0,
     	'post_type'        => 'episode',
     	'meta_key'=>'podcast_id',
@@ -120,7 +119,7 @@ class PublisherUpdater
     $episode_info = array(
       'podcast_id'=>$parent_id,
       'guid'=>$item['guid'],
-      'title'=>$item['description'],
+      'title'=>$item['title'],
       'description'=>$item['description'],
       'mp3_url'=>$item['enclosure']['url'],
       'duration'=>$item['itunes']['duration'],
@@ -128,6 +127,7 @@ class PublisherUpdater
       'episode_url'=>$item['link'],
       'summary'=>$item['itunes']['subtitle'],
       'episode_image_url'=>$item['itunes']['image'],
+      'raw_feed'=>$item['raw'],
     );
     foreach($episode_info as $k=>$v)
     {
@@ -167,7 +167,7 @@ class PublisherUpdater
     
     if(!$rss_url) return;
     $xml = file_get_contents($rss_url);
-    
+
     libxml_use_internal_errors(true);
     try { 
       $rss = new SimpleXmlElement($xml); 
@@ -196,6 +196,9 @@ class PublisherUpdater
       wp_update_post($post);
       update_post_meta($post->ID, 'title', $title);
     }
+    
+    /* Raw feed */
+    update_post_meta($post->ID, 'raw_feed', $xml);
     
     /* Description */
     $content = $this->sanitize($rss->channel->children('itunes', true)->summary->__toString());

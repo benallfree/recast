@@ -85,6 +85,15 @@ function recast_podcast_metabox() {
         'disabled' => 'disabled',
       )
     ),
+    'raw_feed'=>array(
+      'name'=>'Raw feed XML',
+      'type'=>'textarea',
+      'desc'=>'Auto-populated when feed is refreshed.',
+      'attributes'=>array(
+        'readonly' => 'readonly',
+        'disabled' => 'disabled',
+      ),
+    ),
   );
 
   foreach($fields as $k=>$f)
@@ -149,11 +158,17 @@ function recast_episode_metabox() {
       'name'=>'Episode Image URL',
       'type'=>'text_url',
     ),
+    'raw_feed'=>array(
+      'name'=>'Raw feed XML',
+      'type'=>'textarea',
+    ),
+    
   );
   
   foreach($fields as $k=>$f)
   {
     $f['id'] = $k;
+    $f['desc']='Auto-populated when feed is refreshed.';
     $f['attributes'] = array(
       'readonly' => 'readonly',
       'disabled' => 'disabled',

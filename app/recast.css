@@ -1,0 +1,176 @@
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+.podcast-listing {
+  /*
+  .podcast.featured 
+  {
+    &:hover
+    {
+      color: black;
+      text-decoration: none;
+      background-color: rgba(254, 255, 226, 0.3);
+    }
+  }
+*/
+}
+.podcast-listing .podcast {
+  color: black;
+  display: block;
+  border: 1px solid #B2B2B2;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: rgba(192, 192, 192, 0.27);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+  text-align: center;
+  float: left;
+  margin-right: 10px;
+  width: 130px;
+  height: 230px;
+  position: relative;
+}
+.podcast-listing .podcast:hover {
+  color: black;
+  text-decoration: none;
+  background-color: rgba(192, 192, 192, 0.05);
+}
+.podcast-listing .podcast h1 {
+  font-size: 15px;
+  padding-top: 0px;
+  margin-top: 3px;
+}
+.podcast-listing .podcast .featured {
+  display: none;
+  /*
+      position: absolute;
+      background-color: rgb(31, 87, 142);
+      padding: 3px;
+      border: 1px solid black;
+      border-top-left-radius: 10px;
+      top: 0px;
+      left: 0px;
+      border-top: initial;
+      border-left: initial;
+      border-bottom-right-radius: 9px;
+      color: gold;
+      text-transform: uppercase;
+      font-size: 12px;
+*/
+}
+.podcast-listing .podcast img.logo {
+  width: 100%;
+  border: 1px solid #887070;
+}
+.podcast-listing .podcast .episode-count {
+  width: 130px;
+  position: absolute;
+  left: -1px;
+  top: 209px;
+  font-size: 10pt;
+  font-weight: bold;
+}
+@media (min-width: 335px) {
+  .podcast {
+    width: 146px;
+  }
+  .podcast .episode-count {
+    width: 146px;
+  }
+}
+.single-publisher h1,
+.single-publisher h2,
+.single-publisher h3 {
+  clear: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.single-publisher h1 {
+  font-size: 24pt;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.single-publisher h2 {
+  margin-top: 5px;
+  font-size: 14pt;
+  margin-bottom: 0px;
+}
+.single-publisher h3 {
+  margin-top: 5px;
+  font-size: 12pt;
+  margin-bottom: 0px;
+  color: gray;
+}
+.single-publisher .logo {
+  position: relative;
+  float: left;
+  width: 100px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.single-publisher .logo img {
+  border: 1px solid black;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .single-publisher .logo {
+    width: 150px;
+  }
+}
+.single-publisher .logo .featured {
+  display: none;
+  position: absolute;
+  background-color: #1f578e;
+  padding: 3px;
+  border: 1px solid black;
+  top: 0px;
+  left: 0px;
+  border-top: initial;
+  border-left: initial;
+  border-bottom-right-radius: 9px;
+  color: gold;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.single-publisher .episode {
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  border: 1px solid black;
+  border: 1px solid #cacaca;
+  color: black;
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.single-publisher .episode .metabox {
+  width: 100%;
+}
+.single-publisher .episode .metabox img {
+  max-width: 150px;
+  border: 1px solid gray;
+}
+@media (min-width: 480px) {
+  .single-publisher .episode .metabox img {
+    max-width: 200px;
+    float: left;
+    margin-right: 10px;
+  }
+}
+.single-publisher .episode .metabox .info {
+  display: block;
+  overflow: hidden;
+}
+.single-publisher .episode .metabox .info h3 a {
+  color: blue;
+}

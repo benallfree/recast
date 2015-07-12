@@ -14,7 +14,11 @@ if (version_compare(PHP_VERSION, '5.3.0') < 0) {
   return;
 }
 
+define('RECAST_QS_SCOPE', '_rc');
+define('RECAST_EPISODE_LIMIT', 50);
+
 require(dirname(__FILE__)."/../vendor/autoload.php");
+require_once('lib/less.php');
 require_once('lib/compat.php');
 require_once('lib/debug.php');
 require_once('lib/cpt.php');

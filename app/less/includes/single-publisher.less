@@ -1,0 +1,101 @@
+.single-publisher
+{
+  h1, h2, h3
+  {
+    clear: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;    
+  }
+  
+  h1 {
+    font-size: 24pt;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    
+  }
+  h2 {
+    margin-top: 5px;
+    font-size: 14pt;
+    margin-bottom: 0px;
+  }
+  h3 {
+    margin-top: 5px;
+    font-size: 12pt;
+    margin-bottom: 0px;
+    color: gray;
+  }
+
+  .logo
+  {
+    position: relative;
+    float: left;
+    width: 100px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    img
+    {
+       border: 1px solid black;
+       width:100%;
+     }
+    @media (min-width: 768px)
+    {
+      width: 150px;
+    }
+    .featured
+    {
+      display: none;
+      position: absolute;
+      background-color: rgb(31, 87, 142);
+      padding: 3px;
+      border: 1px solid black;
+      top: 0px;
+      left: 0px;
+      border-top: initial;
+      border-left: initial;
+      border-bottom-right-radius: 9px;
+      color: gold;
+      text-transform: uppercase; 
+      font-size: 12px;
+    }
+  }
+
+  .episode {
+  	background-color: rgb(244, 244, 244);
+  	border-radius: 5px;
+  	border-radius: 5px;
+  	border: 1px solid black;
+  	border: 1px solid rgb(202, 202, 202);
+  	color: black;
+  	display: block;
+  	margin-bottom: 10px;
+  	padding: 10px;
+  	padding: 10px;
+  	.metabox
+  	{
+    	width: 100%;
+    	img
+    	{
+      	max-width: 150px;
+    		border: 1px solid gray;
+    		@media(min-width: 480px)
+    		{
+        	max-width: 200px;
+      		float: left;
+      		margin-right: 10px;
+    		}
+    	}
+    	.info
+    	{
+      	display: block;
+      	overflow: hidden;
+      	h3 {
+      		a {
+      			color: blue;
+      		}
+      	}
+    	}
+  	}
+  }
+  
+}

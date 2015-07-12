@@ -8,5 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
     'Michelf' => array($vendorDir . '/michelf/php-markdown'),
+    'Less' => array($vendorDir . '/oyejorge/less.php/lib'),
     'Carbon' => array($vendorDir . '/nesbot/carbon/src'),
 );

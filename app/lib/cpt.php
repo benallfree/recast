@@ -72,7 +72,7 @@ function recast_episode_cpt() {
 		'supports'            => false,
 		'hierarchical'        => false,
 		'public'              => true,
-		'show_ui'             => false,
+		'show_ui'             => true,
 		'show_in_menu'        => true,
 		'menu_position'       => 5,
 		'menu_icon'           => 'dashicons-format-chat',

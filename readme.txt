@@ -26,9 +26,11 @@ Features:
 * Add new podcasts by RSS feed URL
 * Recast aggregates feed data from podcasts into your site
 * Easy to set up - use a simple \[recast\] shortcode to get started
+* Displays 50 most recent episodes from each podcast
 
 [Recast PRO](http://wp-results.com/plugins/recast) adds the following features:
 
+* Display unlimited episodes from each podcast
 * Featured podcasts and episodes
 * Responsive layout slider to feature episodes
 * Directory/episode searching

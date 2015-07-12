@@ -3,7 +3,8 @@
     "require": {
         "nesbot/carbon": "^1.19",
         "nickcernis/html-to-markdown": "^2.2",
-        "michelf/php-markdown": "^1.5"
+        "michelf/php-markdown": "^1.5",
+        "oyejorge/less.php": "v1.7.0.4"
     },
     "authors": [
         {
@@ -13,7 +14,8 @@
     ],
   	"autoload": {
   		"classmap": [
-  			"app/classes"
+  			"app/classes",
+        "app/models"
   		]
   	}
 }
