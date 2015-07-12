@@ -8,7 +8,6 @@ Recast allows you to create your own podcast directory and network.
 
 <h2>Usage</h2>
 
-
 <h2>Getting Help</h2>
 
 Please send all support-related questions to <a href="https://wordpress.org/support/plugin/recast">our plugin forum</a> on WordPress.com.

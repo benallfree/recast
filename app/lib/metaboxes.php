@@ -76,6 +76,15 @@ function recast_podcast_metabox() {
         'disabled' => 'disabled',
       )
     ),
+    'episode_count'=>array(
+      'name'=>'Episode Count',
+      'type' => 'text',
+      'desc' => 'Auto-populated when feed is refreshed.',
+      'attributes'=>array(
+        'readonly' => 'readonly',
+        'disabled' => 'disabled',
+      )
+    ),
   );
 
   foreach($fields as $k=>$f)
@@ -99,9 +108,18 @@ function recast_episode_metabox() {
   ) );
   
   $fields = array(
+    'podcast_id'=>array(
+      'name'=>'Podcast ID',
+      'type'=>'text',
+      'desc'=>'ID of the Podcast that owns this episode.',
+    ),
     'guid'=>array(
       'name'=>'GUID',
       'type'=>'text',
+    ),
+    'title'=>array(
+      'name'=>'Title',
+      'type'=>'text,'
     ),
     'description'=>array(
       'name'=>'Description',

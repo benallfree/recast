@@ -5,9 +5,11 @@ class Recast
   function __construct()
   {
     add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'plugin_action_links' );
-    add_action('wp_insert_post', array($this, 'schedule_refresh'),10,3);
-    add_action('all', array($this, 'refresh_podcast'));
+    add_action('wp_insert_post', array($this, 'refresh_podcast'),10,2);
+//    add_action('all', array($this, 'refresh_podcast'));
     add_shortcode('recast', array($this, 'recast_shortcode'));
+    add_action('recast_process_episode', array('PublisherUpdater', 'process_epsiode'));
+    $this->is_refreshing = false;
   }
   
   function recast_shortcode($attrs, $content='')
@@ -22,32 +24,33 @@ class Recast
     error_log("Recast: {$json}");
   }
   
-  function refresh_podcast($action_name)
+  function cron_refresh($action_name)
   {
-    if(!preg_match("/recast_cron_/", $action_name)) return;
     self::log($action_name);
-    self::log(func_get_args());
     list($junk, $junk, $post_id) = explode('_', $action_name);
-    self::log($post_id);
+    $post = get_post($post_id);
+    $this->refresh_podcast($post_id, $post);
+  }
+  
+  function refresh_podcast($post_id, $post)
+  {
+    if($this->is_refreshing || $post->post_type!='podcast') return;
+    $this->is_refreshing = true;
     $pu = new PublisherUpdater();
     $pu->update($post_id);
-  }
-  
-  function plugin_action_links( $links ) {
-     $links[] = '<a href="'. esc_url( get_admin_url(null, 'admin.php?page=recast_instruction_page') ) .'">Settings</a>';
-     return $links;
-  }
-  
-  function schedule_refresh($post_id, $post, $is_update)
-  {
-    if(!$post->post_type=='podcast') return;
+    $this->is_refreshing = false;
+    
+    /* Schedule auto-refresh */
     $action_name = 'recast_cron_'.$post_id;
     if (wp_next_scheduled($action_name))
     {
       wp_unschedule_event(wp_next_scheduled($action_name), $action_name);
     }
-    self::log("Scheduling");
-    wp_schedule_event( time(), 'daily', $action_name );
-    $this->refresh_podcast($action_name);
+    wp_schedule_event( time()+3600, 'daily', $action_name ); // Run again in an hour
+  }
+  
+  function plugin_action_links( $links ) {
+     $links[] = '<a href="'. esc_url( get_admin_url(null, 'admin.php?page=recast_instruction_page') ) .'">Settings</a>';
+     return $links;
   }
 }

@@ -30,15 +30,17 @@ class PublisherUpdater
     }
   }
 
-  function update_episodes($post_id, $rss)
+  function update_episodes($parent_id, $rss)
   {
     foreach($rss->channel->item as $item)
     {
       if(!$item->enclosure) continue;
       $enclosure = $item->enclosure->attributes();
+      $pubDate = new Carbon($item->pubDate->__toString());
       $arr = array(
+        'parent_id'=>$parent_id,
         'title'=>$this->sanitize($item->title->__toString()),
-        'pubDate'=>new Carbon($item->pubDate->__toString()),
+        'pubDate'=>$pubDate->format('U'),
         'guid'=>$item->guid->__toString(),
         'link'=>$item->link->__toString(),
         'description'=>$this->sanitize($item->description->__toString()),
@@ -64,7 +66,6 @@ class PublisherUpdater
         
       }
       $items[] = $arr;
-      
     }
 
     usort($items, function($a, $b) {
@@ -73,23 +74,65 @@ class PublisherUpdater
       return -1;
     });
     
-    $episodes = array();
+    $items = array_slice($items, 0, 25);
     
-    foreach($items as $item)
+    for($i=0;$i<count($items);$i++)
     {
-      $episodes[] = array(
-        'guid'=>$item['guid'],
-        'title'=>$item['title'],
-        'description'=>$item['description'],
-        'mp3_url'=>$item['enclosure']['url'],
-        'duration'=>$item['itunes']['duration'],
-        'publish_date'=>$item['pubDate']->format('U'),
-        'episode_url'=>$item['link'],
-        'summary'=>$item['itunes']['subtitle'],
-        'episode_image_url'=>$item['itunes']['image'],
-      );
+      self::process_episode($items[$i]);
     }
-    update_post_meta($post_id, 'feed_episodes', array_slice($episodes,0,25));
+    $args = array(
+    	'posts_per_page'   => 0,
+    	'offset'           => 0,
+    	'post_type'        => 'episode',
+    	'meta_key'=>'podcast_id',
+    	'meta_value'=>$parent_id,
+    );
+    $q = new WP_Query($args);
+    update_post_meta($parent_id, 'episode_count', $q->found_posts);
+  }
+  
+  static function process_episode($item)
+  {
+    $parent_id = $item['parent_id'];
+
+    Recast::log("Processing episode {$item['title']} for parent {$parent_id}");
+    $args = array(
+    	'posts_per_page'   => -1,
+    	'post_type'        => 'episode',
+    	'meta_key'=>'guid',
+    	'meta_value'=>$item['guid'],
+    );
+    $posts = get_posts( $args );
+    if(count($posts)>0)
+    {
+      $post = $posts[0];
+    } else {
+      $post_id = wp_insert_post( array(
+        'post_title'=>$item['title'],
+        'post_status'=>'publish',
+        'post_type'=>'episode',
+      ));
+      $post = get_post($post_id);
+    }
+    $post->post_title = $item['title'];
+    wp_update_post($post);
+    
+    $episode_info = array(
+      'podcast_id'=>$parent_id,
+      'guid'=>$item['guid'],
+      'title'=>$item['description'],
+      'description'=>$item['description'],
+      'mp3_url'=>$item['enclosure']['url'],
+      'duration'=>$item['itunes']['duration'],
+      'publish_date'=>$item['pubDate'],
+      'episode_url'=>$item['link'],
+      'summary'=>$item['itunes']['subtitle'],
+      'episode_image_url'=>$item['itunes']['image'],
+    );
+    foreach($episode_info as $k=>$v)
+    {
+      update_post_meta($post->ID, $k, $v);
+    }
   }
     
   function tag($t)
@@ -121,6 +164,7 @@ class PublisherUpdater
     $rss_url = get_post_meta($post->ID, 'feed_url', true);
     
     Recast::log($rss_url);
+    
     if(!$rss_url) return;
     $xml = file_get_contents($rss_url);
     
@@ -148,6 +192,8 @@ class PublisherUpdater
     $title = $this->sanitize($rss->channel->title->__toString());
     if($title)
     {
+      $post->post_title = $title;
+      wp_update_post($post);
       update_post_meta($post->ID, 'title', $title);
     }
     
@@ -164,7 +210,7 @@ class PublisherUpdater
     
     /* Logo */
     $logo = $rss->channel->children('itunes', true)->image->__toString();
-    if(!$logo)
+    if(!$logo && $rss->channel->image->url)
     {
       $logo = $rss->channel->image->url->__toString();
     }
@@ -200,7 +246,6 @@ class PublisherUpdater
     {
       update_post_meta($post->ID, 'website_url', $v);
     }
-    
     $this->update_episodes($post->ID, $rss);    
   }
 }
