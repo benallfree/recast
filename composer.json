@@ -4,7 +4,8 @@
         "nesbot/carbon": "^1.19",
         "nickcernis/html-to-markdown": "^2.2",
         "michelf/php-markdown": "^1.5",
-        "oyejorge/less.php": "v1.7.0.4"
+        "oyejorge/less.php": "v1.7.0.4",
+        "webdevstudios/cmb2": "^2.0"
     },
     "authors": [
         {
@@ -15,7 +16,17 @@
   	"autoload": {
   		"classmap": [
   			"app/classes",
-        "app/models"
-  		]
+        "app/models",
+        "bladepress"
+  		],
+      "files": [
+        "vendor/webdevstudios/cmb2/init.php",
+        "app/lib/compat.php",
+        "app/lib/debug.php",
+        "app/lib/less.php",
+        "app/lib/admin.php",
+        "app/lib/cpt.php",
+        "app/lib/metaboxes.php"
+      ]
   	}
 }

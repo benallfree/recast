@@ -18,15 +18,5 @@ define('RECAST_QS_SCOPE', '_rc');
 define('RECAST_EPISODE_LIMIT', 50);
 
 require(dirname(__FILE__)."/../vendor/autoload.php");
-require_once('lib/less.php');
-require_once('lib/compat.php');
-require_once('lib/debug.php');
-require_once('lib/cpt.php');
-require_once('lib/metaboxes.php');
-
-if ( file_exists( dirname( __FILE__ ) . '/../cmb2/init.php' ) ) {
-	require_once dirname( __FILE__ ) . '/../cmb2/init.php';
-}
-
 
 new Recast();

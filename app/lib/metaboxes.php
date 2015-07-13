@@ -128,7 +128,7 @@ function recast_episode_metabox() {
     ),
     'title'=>array(
       'name'=>'Title',
-      'type'=>'text,'
+      'type'=>'text',
     ),
     'description'=>array(
       'name'=>'Description',
